@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#C8102E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PC Pépieux">
+<link rel="manifest" href="manifest.json">
+<title>Pétanque Club Pépieux</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--rouge:#C8102E;--rouge-dk:#9B0C22;--noir:#0f0f0f;--or:#d4a843;--g3:#f4f4f4;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Lato',sans-serif;background:var(--g3);min-height:100vh;display:flex;flex-direction:column;}
+
+header{
+  background:linear-gradient(135deg,var(--noir) 0%,#1a0508 100%);
+  padding:28px 24px 32px;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--rouge-dk),var(--rouge),var(--or),var(--rouge),var(--rouge-dk));}
+
+.logo-ring{
+  width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rouge),var(--or));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  box-shadow:0 0 30px rgba(200,16,46,0.4);
+}
+.logo-ring span{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:1px;}
+
+header h1{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;
+  color:#fff;letter-spacing:2px;text-transform:uppercase;line-height:1.1;}
+header h1 em{font-style:normal;color:var(--rouge);}
+header p{font-family:'Oswald',sans-serif;color:#555;font-size:0.72rem;
+  letter-spacing:3px;text-transform:uppercase;margin-top:6px;}
+
+main{flex:1;padding:24px 16px;max-width:500px;margin:0 auto;width:100%;}
+
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+
+.app-card{
+  background:#fff;border-radius:4px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  padding:24px 16px;
+  text-align:center;
+  text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  border-top:4px solid var(--rouge);
+  transition:transform 0.2s,box-shadow 0.2s;
+  cursor:pointer;
+}
+.app-card:active{transform:scale(0.97);}
+.app-card .icon{font-size:2.2rem;}
+.app-card h2{font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;color:#111;line-height:1.2;}
+.app-card p{font-size:0.78rem;color:#888;line-height:1.4;}
+.app-card.vert{border-top-color:#2e7d32;}
+.app-card.bleu{border-top-color:#1565c0;}
+.app-card.or{border-top-color:var(--or);}
+
+.info-band{
+  background:#fff;border-left:4px solid var(--or);
+  padding:14px 16px;margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.06);
+}
+.info-band .ico{font-size:1.4rem;flex-shrink:0;}
+.info-band p{font-size:0.82rem;color:#555;line-height:1.5;}
+.info-band strong{color:#111;}
+
+.version{text-align:center;font-family:'Oswald',sans-serif;font-size:0.65rem;
+  letter-spacing:2px;color:#bbb;text-transform:uppercase;margin-top:8px;}
+
+footer{background:var(--noir);color:#444;text-align:center;
+  font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:1px;padding:14px;}
+footer span{color:var(--rouge);}
+
+.offline-badge{
+  display:none;
+  background:#2e7d32;color:#fff;
+  font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:1px;
+  text-transform:uppercase;padding:4px 10px;border-radius:12px;
+  margin-top:8px;display:inline-block;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-ring"><span>PCP</span></div>
+  <h1>Pétanque Club <em>Pépieux</em></h1>
+  <p>Application de gestion &nbsp;·&nbsp; Saison 2026</p>
+</header>
+
+<main>
+  <div class="info-band">
+    <span class="ico">📱</span>
+    <p>Appuyez sur <strong>Menu ⋮ → Ajouter à l'écran d'accueil</strong> pour installer l'application sur votre téléphone.</p>
+  </div>
+
+  <div class="app-grid">
+    <a class="app-card" href="gestion.html">
+      <span class="icon">🎯</span>
+      <h2>Stocks &amp; Événements</h2>
+      <p>Produits, achats, stock, suivi des ventes par concours</p>
+    </a>
+    <a class="app-card vert" href="budget.html">
+      <span class="icon">💰</span>
+      <h2>Budget Club</h2>
+      <p>Entrées, dépenses et compte rendu financier</p>
+    </a>
+  </div>
+
+  <div class="info-band" style="border-left-color:#1565c0;">
+    <span class="ico">💾</span>
+    <p>Toutes les données sont <strong>sauvegardées sur votre téléphone</strong>. Utilisez le bouton Sauvegarder pour exporter un fichier de sauvegarde.</p>
+  </div>
+
+  <div class="version">Version 1.0 · Saison 2026 · FFPJP Comité Aude</div>
+</main>
+
+<footer><span>Pétanque Club Pépieux</span> &nbsp;·&nbsp; N° 011M19 &nbsp;·&nbsp; Comité de l'Aude</footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg){ console.log('SW OK', reg.scope); })
+      .catch(function(e){ console.log('SW erreur', e); });
+  });
+}
+</script>
+</body>
+</html>
