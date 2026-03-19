@@ -1,26 +1,26 @@
-const CACHE_NAME = 'pepieux-v1';
+const CACHE_NAME = 'pepieux-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/gestion.html',
-  '/budget.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  'https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@400;700&display=swap'
+  'index.html',
+  'gestion.html',
+  'budget.html',
+  'manifest.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
-// Installation : mise en cache de tous les assets
 self.addEventListener('install', function(e) {
   e.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll(ASSETS.filter(function(u){ return !u.startsWith('http'); }));
+      return Promise.all(
+        ASSETS.map(function(asset) {
+          return cache.add(new Request(asset, {cache: 'reload'}));
+        })
+      );
     })
   );
   self.skipWaiting();
 });
 
-// Activation : suppression des anciens caches
 self.addEventListener('activate', function(e) {
   e.waitUntil(
     caches.keys().then(function(keys) {
@@ -33,30 +33,20 @@ self.addEventListener('activate', function(e) {
   self.clients.claim();
 });
 
-// Fetch : cache-first pour les assets locaux, network-first pour le reste
 self.addEventListener('fetch', function(e) {
-  var url = new URL(e.request.url);
-  
-  // Assets locaux : cache d'abord
-  if (url.origin === self.location.origin) {
-    e.respondWith(
-      caches.match(e.request).then(function(cached) {
-        if (cached) return cached;
-        return fetch(e.request).then(function(response) {
-          var clone = response.clone();
-          caches.open(CACHE_NAME).then(function(cache){ cache.put(e.request, clone); });
-          return response;
-        }).catch(function() {
-          return new Response('Hors ligne - contenu non disponible', {status: 503});
+  e.respondWith(
+    caches.match(e.request).then(function(cached) {
+      if (cached) return cached;
+      return fetch(e.request).then(function(response) {
+        if (!response || response.status !== 200) return response;
+        var clone = response.clone();
+        caches.open(CACHE_NAME).then(function(cache){
+          cache.put(e.request, clone);
         });
-      })
-    );
-  } else {
-    // Ressources externes (fonts etc) : network avec fallback cache
-    e.respondWith(
-      fetch(e.request).catch(function() {
-        return caches.match(e.request);
-      })
-    );
-  }
+        return response;
+      }).catch(function() {
+        return cached || new Response('Hors ligne', {status: 503});
+      });
+    })
+  );
 });
