@@ -1,0 +1,29 @@
+{
+  "name": "Pétanque Club Pépieux",
+  "short_name": "PC Pépieux",
+  "description": "Gestion stocks, événements et budget du Pétanque Club Pépieux",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#C8102E",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Stocks & Événements",
+      "short_name": "Événements",
+      "url": "/gestion.html",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Budget Club",
+      "short_name": "Budget",
+      "url": "/budget.html",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
